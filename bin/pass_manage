@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'password_manager'
+require 'clipboard'
+
+PasswordManager.config_path = File.expand_path '.pass_manage', '~'
+
+case ARGV[0]
+  when 'generate'
+    PasswordManager.generate
+  when 'get'
+    Clipboard.copy PasswordManager.get ARGV[1], ARGV[2]
+  when 'set'
+    puts PasswordManager.get ARGV[1], ARGV[2]
+  else
+    puts "Allowed commands: generate, get and set"
+end
