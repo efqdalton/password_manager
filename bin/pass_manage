@@ -8,11 +8,11 @@ PasswordManager.config_path = File.expand_path '.pass_manage', '~'
 
 case ARGV[0]
   when 'generate'
-    PasswordManager.generate
+    PasswordManager.generate(ARGV[1])
   when 'get'
-    Clipboard.copy PasswordManager.get ARGV[1], ARGV[2]
+    Clipboard.copy PasswordManager.get ARGV[1], ARGV[2], ARGV[3]
   when 'set'
-    puts PasswordManager.get ARGV[1], ARGV[2]
+    puts PasswordManager.get ARGV[1], ARGV[2], ARGV[3]
   else
     puts "Allowed commands: generate, get and set"
 end

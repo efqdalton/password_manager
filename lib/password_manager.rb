@@ -7,14 +7,16 @@ module PasswordManager
     Dir.mkdir(@config_path) unless Dir.exists?(@config_path)
   end
 
-  def self.generate
+  def self.generate(group)
+    group ||= 'default'
     key_pair = OpenSSL::PKey::RSA.generate 1024
-    File.open(File.join(@config_path, 'keys.pem'), 'w'){ |f| f.puts key_pair.to_s }
+    File.open(File.join(@config_path, "#{group}.pem"), 'w'){ |f| f.puts key_pair.to_s }
   end
 
-  def self.get(service, size)
-    size ||= 16
-    rsa = OpenSSL::PKey::RSA.new File.read( File.join(@config_path, 'keys.pem') )
+  def self.get(service, group, size)
+    group ||= 'default'
+    size  ||= 16
+    rsa     = OpenSSL::PKey::RSA.new File.read( File.join(@config_path, "#{group}.pem") )
     Base64.encode64(rsa.private_encrypt(service)).gsub(/[\+\/]/, '').chomp[0..size.to_i]
   end
 end
