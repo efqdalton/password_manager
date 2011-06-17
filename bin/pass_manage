@@ -13,6 +13,23 @@ case ARGV[0]
     Clipboard.copy PasswordManager.get ARGV[1], ARGV[2], ARGV[3]
   when 'set'
     puts PasswordManager.get ARGV[1], ARGV[2], ARGV[3]
+  when 'remove'
+    if PasswordManager.remove ARGV[1]
+      puts 'Group succesfully removed'
+    else
+      puts "Group can't be removed"
+    end
+  when 'change_password'
+    PasswordManager.change_password ARGV[1]
+  when 'import'
+    PasswordManager.import ARGV[1]
+  when 'export'
+    PasswordManager.export ARGV[1]
+  when 'list'
+    puts "Groups:"
+    PasswordManager.list.each do |group|
+      puts " * #{group}"
+    end
   else
     puts "Allowed commands: generate, get and set"
 end

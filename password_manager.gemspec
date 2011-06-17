@@ -20,4 +20,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'clipboard', '>= 0.9.0'
+  s.add_dependency 'highline',  '>= 1.6.2'
 end
